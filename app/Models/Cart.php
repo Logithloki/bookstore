@@ -12,7 +12,6 @@ class Cart extends Model
     protected $fillable = [
         'user_id',
         'book_id',
-        // quantity has been removed
     ];
 
      /**

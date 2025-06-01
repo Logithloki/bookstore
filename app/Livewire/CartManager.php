@@ -36,26 +36,10 @@ class CartManager extends Component
                     'price' => $item->book->price,
                     'type' => $item->book->for,
                     'cover' => $item->book->cover,
-                    'quantity' => $item->quantity,
-                    'subtotal' => $item->book->price * $item->quantity
                 ];
             })->toArray();
 
             $this->calculateTotals();
-        }
-    }
-
-    public function updateQuantity($cartId, $newQuantity)
-    {
-        if ($newQuantity < 1) {
-            $this->removeItem($cartId);
-            return;
-        }
-
-        $cartItem = Cart::find($cartId);
-        if ($cartItem && $cartItem->user_id === Auth::id()) {
-            $cartItem->update(['quantity' => $newQuantity]);
-            $this->refreshCart();
         }
     }
 
@@ -78,8 +62,8 @@ class CartManager extends Component
 
     protected function calculateTotals()
     {
-        $this->total = collect($this->cartItems)->sum('subtotal');
-        $this->itemCount = collect($this->cartItems)->sum('quantity');
+        $this->total = collect($this->cartItems)->sum('price');
+        $this->itemCount = count($this->cartItems);
     }
 
     public function render()

@@ -21,34 +21,24 @@ class CartController extends Controller
         
         $user = Auth::user();
 
-        // Find the cart item for the user and book
+        // Check if the book is already in the cart
         $cartItem = Cart::where('user_id', $user->_id)
                         ->where('book_id', $id)
                         ->first();
 
         if ($cartItem) {
-            // If the book is already in the cart, increment the quantity
-            // Assuming 'quantity' field exists in the Cart model and is an integer.
-            $cartItem->quantity = ($cartItem->quantity ?? 0) + 1; // Increment quantity, defaulting to 0 if null
-            $cartItem->save();
-            $message = 'Quantity updated in cart.';
+            // If the book is already in the cart, show message
+            $message = 'Book is already in your cart.';
         } else {
-            // If the book is not in the cart, create a new cart item with quantity 1
+            // If the book is not in the cart, create a new cart item
             Cart::create([
                 'user_id' => $user->_id,
                 'book_id' => $id,
-                'quantity' => 1, // Add with a quantity of 1
             ]);
             $message = 'Book added to cart successfully.';
         }
 
-        // Dispatch Livewire event to refresh the cart display if the component is present
-        // This assumes the CartManager component is listening for 'cartUpdated'
-        
-        // Since this is a redirect, Livewire will likely re-render the component on the next page load
-        // But explicitly dispatching can be useful if the component is on the same page (e.g., a mini-cart)
-        // $this->dispatch('cartUpdated'); // This might not be necessary/work directly from Controller
-
         return back()->with('success', $message);
     }
-} 
+
+}
