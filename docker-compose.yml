@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    volumes:
+      - .:/var/www
+    ports:
+      - "8000:80"
+      - "5173:5173"  # Add this line for Vite dev server
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
