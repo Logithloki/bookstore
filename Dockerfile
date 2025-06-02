@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     libzip-dev \
     libicu-dev \
-    gnupg
+    gnupg \
+    default-mysql-client
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
