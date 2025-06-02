@@ -94,9 +94,7 @@ class AuthController extends Controller
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Logged out successfully']);
-    }
-
-    /**
+    }    /**
      * Get the authenticated User
      *
      * @param  \Illuminate\Http\Request  $request
@@ -104,8 +102,8 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        Log::info('Authenticated User:', ['user' => auth()->user()]);
         $user = $request->user();
+        Log::info('Authenticated User:', ['user_id' => $user->id, 'email' => $user->email]);
         
         return response()->json($user);
     }

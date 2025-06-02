@@ -23,12 +23,8 @@
             <!-- Profile Management Section -->
             <div class="max-w-lg mx-auto p-8 rounded-lg shadow-lg bg-white bg-opacity-90 relative mb-8">
                 <h1 class="text-4xl font-bold mb-6 text-center text-gray-800">Account</h1>
-                
-                <div class="text-center mb-6">
+                  <div class="text-center mb-6">
                     <div class="mb-4">
-                        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                            <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="rounded-full size-20 object-cover mx-auto mb-4">
-                        @endif
                         <h2 class="text-2xl font-semibold text-gray-800">{{ Auth::user()->name }}</h2>
                         <p class="text-gray-600">{{ Auth::user()->email }}</p>
                         @if(Auth::user()->phonenumber)
@@ -53,9 +49,8 @@
                         <i class="fa fa-cogs mr-1"></i>Manage Books
                     </a>
                 </div>
-                
-                @php
-                    $userBooks = \App\Models\Book::where('user_id', Auth::user()->_id)->get();
+                  @php
+                    $userBooks = \App\Models\Book::where('user_id', Auth::user()->id)->get();
                 @endphp
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

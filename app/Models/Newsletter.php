@@ -26,7 +26,8 @@ class Newsletter extends Model
     // Define relationship with the User who subscribed
     public function user()
     {
-        // 'user_id' is the foreign key in this 'newsletter' collection
-        return $this->belongsTo(User::class, 'user_id');
+        // Newsletter (MongoDB) belongs to User (MySQL)
+        // 'user_id' is the foreign key in this 'newsletter' collection that references MySQL users.id
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 }

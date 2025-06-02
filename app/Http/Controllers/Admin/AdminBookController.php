@@ -15,8 +15,7 @@ class AdminBookController extends Controller
      */
     public function index()
     {
-        // Placeholder for the book listing page
-        // We will fetch and pass the authenticated user's books here later
+        // Fetch authenticated user's books using MySQL user.id
         $userBooks = Book::where('user_id', Auth::id())->get();
         return view('admin.books.index', compact('userBooks'));
     }
@@ -99,7 +98,7 @@ class AdminBookController extends Controller
     {
         $book = Book::where('_id', $id)->firstOrFail();
 
-        // Ensure the authenticated user owns the book
+        // Ensure the authenticated user owns the book using MySQL user.id
         if ($book->user_id !== Auth::id()) {
             abort(403); // Forbidden
         }
@@ -129,7 +128,7 @@ class AdminBookController extends Controller
 
         $book = Book::where('_id', $id)->firstOrFail();
 
-        // Ensure the authenticated user owns the book
+        // Ensure the authenticated user owns the book using MySQL user.id
         if ($book->user_id !== Auth::id()) {
             abort(403); // Forbidden
         }
@@ -171,7 +170,7 @@ class AdminBookController extends Controller
     {
         $book = Book::where('_id', $id)->firstOrFail();
 
-        // Ensure the authenticated user owns the book
+        // Ensure the authenticated user owns the book using MySQL user.id
         if ($book->user_id !== Auth::id()) {
             abort(403); // Forbidden
         }

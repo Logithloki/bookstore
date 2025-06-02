@@ -10,8 +10,7 @@ use App\Models\User;
 use App\Http\Controllers\API\AuthController;
 use Illuminate\Validation\Rules;
 
-
-// Authentication routes using Jetstream
+// Authentication routes using native Sanctum
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -36,7 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-
+// Public routes (no authentication required)
 Route::get('/books/latest', [BookController::class, 'latest']);
 Route::get('/books/exchange', [BookController::class, 'exchange']);
 Route::get('/books/used', [BookController::class, 'used']);

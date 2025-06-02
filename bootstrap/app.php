@@ -4,13 +4,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
-// Custom Sanctum setup for Laravel 12 API authentication
-use Laravel\Sanctum\Sanctum;
-use App\Models\PersonalAccessToken;
-
-// Tell Sanctum to use our custom PersonalAccessToken model
-Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
-
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
@@ -22,13 +15,13 @@ return Application::configure(basePath: dirname(__DIR__))
         // Register custom middleware
         $middleware->alias([
             'api.verified' => \App\Http\Middleware\EnsureEmailIsVerifiedForApi::class,
-            'auth.sanctum' => \App\Http\Middleware\SanctumMongoAuth::class, // Our custom MongoDB Sanctum auth middleware
         ]);
         
-        // Apply middleware to API routes
+        // Apply middleware to API routes - using native Sanctum
         $middleware->group('api', [
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            // Note: We're replacing the default Sanctum middleware with our custom one in the routes directly
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

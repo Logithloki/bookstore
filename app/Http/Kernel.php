@@ -37,10 +37,9 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
-        ],
-
-        'api' => [
-            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
+        ],        'api' => [
+            // Removed built-in throttling to use our custom RateLimitMiddleware
+            // \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

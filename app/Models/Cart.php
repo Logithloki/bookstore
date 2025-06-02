@@ -27,14 +27,16 @@ class Cart extends Model
     // Define relationship with the User who owns this cart item
     public function user()
     {
-        // 'user_id' is the foreign key in this 'cart' collection
-        return $this->belongsTo(User::class, 'user_id');
+        // Cart (MongoDB) belongs to User (MySQL)
+        // 'user_id' is the foreign key in this 'cart' collection that references MySQL users.id
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
     // Define relationship with the Book in this cart item
     public function book()
     {
+        // Both Cart and Book are in MongoDB, standard relationship
         // 'book_id' is the foreign key in this 'cart' collection
-        return $this->belongsTo(Book::class, 'book_id');
+        return $this->belongsTo(\App\Models\Book::class, 'book_id', '_id');
     }
 }

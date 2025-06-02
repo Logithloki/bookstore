@@ -22,7 +22,8 @@ class CartController extends Controller
         $user = Auth::user();
 
         // Check if the book is already in the cart
-        $cartItem = Cart::where('user_id', $user->_id)
+        // Use MySQL user id (integer) instead of MongoDB _id
+        $cartItem = Cart::where('user_id', $user->id)
                         ->where('book_id', $id)
                         ->first();
 
@@ -31,8 +32,9 @@ class CartController extends Controller
             $message = 'Book is already in your cart.';
         } else {
             // If the book is not in the cart, create a new cart item
+            // Use MySQL user id (integer) instead of MongoDB _id
             Cart::create([
-                'user_id' => $user->_id,
+                'user_id' => $user->id,
                 'book_id' => $id,
             ]);
             $message = 'Book added to cart successfully.';

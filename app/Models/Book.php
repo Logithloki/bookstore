@@ -43,7 +43,8 @@ class Book extends Model
     // Define relationship with the User who uploaded this book
     public function user()
     {
-        // 'user_id' is the foreign key in this 'books' collection
-        return $this->belongsTo(User::class, 'user_id');
+        // Book (MongoDB) belongs to User (MySQL)
+        // 'user_id' is the foreign key in this 'books' collection that references MySQL users.id
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 }
