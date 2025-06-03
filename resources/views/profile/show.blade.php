@@ -62,7 +62,7 @@
                         <i class="fa fa-globe text-orange-500 text-2xl mr-3"></i>
                         <h2 class="text-2xl font-bold text-gray-800">Browser Sessions</h2>
                     </div>
-                    @livewire('custom-logout-other-browser-sessions-form')
+                    @livewire('profile.logout-other-browser-sessions-form')
                 </div>
 
                 @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())

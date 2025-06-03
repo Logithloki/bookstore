@@ -28,7 +28,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phonenumber',
+        'location',
         'password',
+        'payment', // Assuming 'payment' stores the subscription plan name
     ];
 
     /**
