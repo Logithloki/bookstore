@@ -31,16 +31,13 @@ Route::middleware('auth')->post('/tokens/create', function (Request $request) {
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
     Route::get('/cart', function () {
         return view('cart');
     })->name('cart');
 
-    // Account page route
-    Route::get('/account', function () {
-        return view('account');
-    })->name('account.show');
+
 
     // Admin book management routes
     Route::resource('admin/books', AdminBookController::class)->names('admin.books');
@@ -53,6 +50,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/edit-book/{id}', [AdminBookController::class, 'update'])->name('books.update');
 });
 
+Route::middleware(['auth'])->group(function () {
+    // Account page route
+    Route::get('/account', function () {
+        return view('account');
+    })->name('account.show');
+});
+
+
 // Subscription routes
 Route::get('/packages', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('packages');
 Route::middleware('auth')->post('/subscribe', [App\Http\Controllers\SubscriptionController::class, 'subscribe'])->name('subscribe');
@@ -63,10 +68,6 @@ Route::middleware('auth')->get('/newsletter/unsubscribe', [App\Http\Controllers\
 
 Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
 
-// Test route
-Route::get('/test-page', function () {
-    return view('test-page');
-})->name('test-page');
 
 Route::get('/search', function () {
     return view('search');
