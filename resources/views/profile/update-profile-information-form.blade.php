@@ -81,6 +81,20 @@
                 @endif
             @endif
         </div>
+
+        <!-- Phone Number -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="phonenumber" value="{{ __('Phone Number') }}" />
+            <x-input id="phonenumber" type="tel" class="mt-1 block w-full" wire:model="state.phonenumber" required autocomplete="tel" />
+            <x-input-error for="phonenumber" class="mt-2" />
+        </div>
+
+        <!-- Location -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="location" value="{{ __('Location') }}" />
+            <x-input id="location" type="text" class="mt-1 block w-full" wire:model="state.location" required autocomplete="address-level2" />
+            <x-input-error for="location" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">
