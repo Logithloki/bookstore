@@ -19,6 +19,11 @@ Route::middleware([
     Route::get('/homepage', function () {
         return view('homepage');
     })->name('homepage');
+    
+    // Dashboard route (redirect to homepage)
+    Route::get('/dashboard', function () {
+        return redirect()->route('homepage');
+    })->name('dashboard');
 });
 
 Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');

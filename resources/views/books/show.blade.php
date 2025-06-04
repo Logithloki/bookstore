@@ -163,34 +163,33 @@
                     <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                         <i class="fas fa-user-circle text-orange-500 mr-3"></i>
                         Seller Information
-                    </h3>
-                    @if($book->user)
+                    </h3>                    @if($user)
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div class="flex items-center p-4 bg-gray-50 rounded-lg">
                                     <i class="fas fa-user text-orange-500 mr-4 text-xl"></i>
                                     <div>
                                         <p class="text-sm text-gray-500 uppercase tracking-wide">Name</p>
-                                        <p class="font-semibold text-gray-900">{{ $book->user->name }}</p>
+                                        <p class="font-semibold text-gray-900">{{ $user->name }}</p>
                                     </div>
                                 </div>
-                                @if($book->user->location)
+                                @if($user->location)
                                     <div class="flex items-center p-4 bg-gray-50 rounded-lg">
                                         <i class="fas fa-map-marker-alt text-orange-500 mr-4 text-xl"></i>
                                         <div>
                                             <p class="text-sm text-gray-500 uppercase tracking-wide">Location</p>
-                                            <p class="font-semibold text-gray-900">{{ $book->user->location }}</p>
+                                            <p class="font-semibold text-gray-900">{{ $user->location }}</p>
                                         </div>
                                     </div>
                                 @endif
                             </div>
                             <div class="space-y-4">
-                                @if($book->user->phonenumber)
+                                @if($user->phonenumber)
                                     <div class="flex items-center p-4 bg-gray-50 rounded-lg">
                                         <i class="fas fa-phone text-orange-500 mr-4 text-xl"></i>
                                         <div>
                                             <p class="text-sm text-gray-500 uppercase tracking-wide">Phone</p>
-                                            <a href="tel:{{ $book->user->phonenumber }}" class="font-semibold text-orange-600 hover:text-orange-800 transition-colors">{{ $book->user->phonenumber }}</a>
+                                            <a href="tel:{{ $user->phonenumber }}" class="font-semibold text-orange-600 hover:text-orange-800 transition-colors">{{ $user->phonenumber }}</a>
                                         </div>
                                     </div>
                                 @endif

@@ -78,7 +78,7 @@ class AdminBookController extends Controller
 
         Book::create($data);
 
-        return redirect()->route('admin.books.index')->with('message', 'Book added successfully!');
+        return redirect()->route('homepage')->with('message', 'Book added successfully!');
     }
 
     /**
