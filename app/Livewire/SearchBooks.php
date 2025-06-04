@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Book;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SearchBooks extends Component
 {
@@ -58,37 +60,55 @@ class SearchBooks extends Component
 
     public function render()
     {
-        $query = Book::query()
-            ->with('user')
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('author', 'like', '%' . $this->search . '%')
-                        ->orWhere('category', 'like', '%' . $this->search . '%');
+        try {
+            // Test database connection first
+            DB::connection('mongodb')->getPdo();
+            
+            $query = Book::query()
+                ->with('user')
+                ->when($this->search, function ($query) {
+                    $query->where(function ($q) {
+                        $q->where('title', 'like', '%' . $this->search . '%')
+                            ->orWhere('author', 'like', '%' . $this->search . '%')
+                            ->orWhere('category', 'like', '%' . $this->search . '%');
+                    });
+                })
+                ->when($this->category, function ($query) {
+                    $query->where('category', $this->category);
+                })
+                ->when($this->type, function ($query) {
+                    $query->where('type', $this->type);
+                })
+                ->when($this->condition, function ($query) {
+                    $query->where('condition', $this->condition);
                 });
-            })
-            ->when($this->category, function ($query) {
-                $query->where('category', $this->category);
-            })
-            ->when($this->type, function ($query) {
-                $query->where('type', $this->type);
-            })
-            ->when($this->condition, function ($query) {
-                $query->where('condition', $this->condition);
-            });
 
-        $books = $query->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate(12);
+            $books = $query->orderBy($this->sortBy, $this->sortDirection)
+                ->paginate(12);
 
-        $categories = Book::distinct()->pluck('category');
-        $types = ['Sell', 'Rental', 'Exchange'];
-        $conditions = ['New', 'Good', 'Fair', 'Poor'];
+            $categories = Book::distinct()->pluck('category');
+            $types = ['Sell', 'Rental', 'Exchange'];
+            $conditions = ['New', 'Good', 'Fair', 'Poor'];
 
-        return view('livewire.search-books', [
-            'books' => $books,
-            'categories' => $categories,
-            'types' => $types,
-            'conditions' => $conditions,
-        ]);
+            return view('livewire.search-books', [
+                'books' => $books,
+                'categories' => $categories,
+                'types' => $types,
+                'conditions' => $conditions,
+            ]);
+            
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('Database connection error in SearchBooks: ' . $e->getMessage());
+            
+            // Return a view with empty data and error message
+            return view('livewire.search-books', [
+                'books' => collect(),
+                'categories' => collect(),
+                'types' => ['Sell', 'Rental', 'Exchange'],
+                'conditions' => ['New', 'Good', 'Fair', 'Poor'],
+                'error' => 'Database connection failed. Please try again later.',
+            ]);
+        }
     }
 } 
