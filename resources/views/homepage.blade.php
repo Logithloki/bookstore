@@ -81,7 +81,7 @@
     <h2 class="text-3xl font-extrabold text-gray-800 mb-10">USED BOOKS</h2>    <div class="flex flex-wrap gap-6 justify-left">
       @forelse ($usedBooks as $book)
         <div class="w-36 sm:w-44 cursor-pointer" onclick="openBook('{{ $book->id }}')">
-          <img src="{{ asset($book->cover) }}" alt="{{ $book->title }}" class="w-full h-52 sm:h-60 object-cover shadow-md hover:shadow-xl transition duration-300 rounded">
+            <img src="{{ asset('storage/' . $book->cover) }}" alt="{{ $book->title }}" class="w-full h-52 sm:h-60 object-cover shadow-md hover:shadow-xl transition duration-300 rounded">
           <h4 class="font-bold mt-3 text-center text-sm sm:text-base text-gray-900 line-clamp-2">{{ $book->title }}</h4>
           <p class="text-gray-600 text-xs sm:text-sm text-center">{{ $book->author }}</p>
         </div>
