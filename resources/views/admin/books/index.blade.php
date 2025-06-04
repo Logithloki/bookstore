@@ -40,11 +40,10 @@
                                 @else bg-red-100 text-red-800
                                 @endif">
                                 {{ $book->condition }}
-                            </span>
-                            
-                            @if($book->for === 'Sell')
+                            </span>                            
+                            @if($book->type === 'Sell')
                                 <span class="font-bold text-orange-600">{{ number_format($book->price, 2) }} LKR</span>
-                            @elseif($book->for === 'Rental')
+                            @elseif($book->type === 'Rental')
                                 <span class="font-bold text-blue-600">{{ number_format($book->price, 2) }} LKR/day</span>
                             @else
                                 <span class="font-bold text-green-600">Exchange</span>

@@ -90,7 +90,7 @@
       @endforelse
     </div>
     <div class="mt-12 text-center">
-      <a href="{{ route('search') }}?condition=Used" class="bg-orange-500 text-white py-3 px-8 rounded-lg shadow-lg hover:bg-orange-600 transition transform hover:scale-105 duration-200 ease-in-out">See More</a>
+      <a href="{{ route('search') }}?condition=Fair" class="bg-orange-500 text-white py-3 px-8 rounded-lg shadow-lg hover:bg-orange-600 transition transform hover:scale-105 duration-200 ease-in-out">See More</a>
     </div>
   </section>
 

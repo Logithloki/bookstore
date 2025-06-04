@@ -34,7 +34,7 @@ class CartManager extends Component
                     'title' => $item->book->title,
                     'author' => $item->book->author,
                     'price' => $item->book->price,
-                    'type' => $item->book->for,
+                    'type' => $item->book->type,
                     'cover' => $item->book->cover,
                 ];
             })->toArray();

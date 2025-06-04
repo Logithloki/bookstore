@@ -65,11 +65,9 @@
                         <div class="mb-6">
                             <h1 class="text-4xl font-bold text-gray-900 mb-2">{{ $book->title }}</h1>
                             <p class="text-xl text-gray-600">by <span class="font-semibold text-orange-600">{{ $book->author }}</span></p>
-                        </div>
-
-                        <!-- Price/Rental/Exchange Info -->
+                        </div>                        <!-- Price/Rental/Exchange Info -->
                         <div class="mb-6 p-4 bg-orange-50 rounded-lg border-l-4 border-orange-500">
-                            @if($book->for === 'Sell')
+                            @if($book->type === 'Sell')
                                 <div class="flex items-center">
                                     <i class="fas fa-tag text-orange-500 mr-3 text-xl"></i>
                                     <div>
@@ -77,7 +75,7 @@
                                         <p class="text-3xl font-bold ">LKR {{ number_format($book->price, 2) }}</p>
                                     </div>
                                 </div>
-                            @elseif($book->for === 'Rental')
+                            @elseif($book->type === 'Rental')
                                 <div class="flex items-center">
                                     <i class="fas fa-clock text-orange-500 mr-3 text-xl"></i>
                                     <div>
@@ -86,7 +84,7 @@
                                         <p class="text-sm text-gray-600">for {{ $book->rental_days }} days</p>
                                     </div>
                                 </div>
-                            @elseif($book->for === 'Exchange')
+                            @elseif($book->type === 'Exchange')
                                 <div class="flex items-center">
                                     <i class="fas fa-exchange-alt text-orange-500 mr-3 text-xl"></i>
                                     <div>
@@ -118,10 +116,9 @@
                             <div class="bg-gray-50 p-4 rounded-lg">
                                 <p class="text-sm text-gray-500 uppercase tracking-wide mb-1">Year</p>
                                 <p class="font-semibold text-gray-900">{{ $book->year }}</p>
-                            </div>
-                            <div class="bg-gray-50 p-4 rounded-lg">
+                            </div>                            <div class="bg-gray-50 p-4 rounded-lg">
                                 <p class="text-sm text-gray-500 uppercase tracking-wide mb-1">Type</p>
-                                <p class="font-semibold text-gray-900">{{ $book->for }}</p>
+                                <p class="font-semibold text-gray-900">{{ $book->type }}</p>
                             </div>
                         </div>
 
@@ -230,12 +227,11 @@
                                 @endif
                                 <div class="p-4">
                                     <h4 class="font-semibold text-sm mb-1 line-clamp-2 text-gray-900 group-hover:text-orange-600">{{ $relatedBook->title }}</h4>
-                                    <p class="text-gray-600 text-xs mb-2">{{ $relatedBook->author }}</p>
-                                    <div class="flex justify-between items-center">
+                                    <p class="text-gray-600 text-xs mb-2">{{ $relatedBook->author }}</p>                                    <div class="flex justify-between items-center">
                                         <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full">{{ $relatedBook->category }}</span>
-                                        @if($relatedBook->for === 'Sell')
+                                        @if($relatedBook->type === 'Sell')
                                             <span class="font-bold text-orange-600 text-sm">{{ number_format($relatedBook->price, 0) }} LKR</span>
-                                        @elseif($relatedBook->for === 'Rental')
+                                        @elseif($relatedBook->type === 'Rental')
                                             <span class="font-bold text-orange-600 text-sm">{{ number_format($relatedBook->price, 0) }} LKR/day</span>
                                         @else
                                             <span class="font-bold text-orange-600 text-sm">Exchange</span>

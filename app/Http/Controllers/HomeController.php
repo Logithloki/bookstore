@@ -19,7 +19,7 @@ class HomeController extends Controller
 
 
         // Fetch exchange books
-        $exchangeBooks = Book::where('for', 'Exchange')->limit(6)->get(); // Limit to 6 as in your original logic
+        $exchangeBooks = Book::where('type', 'Exchange')->limit(6)->get(); // Limit to 6 as in your original logic
 
         // Fetch used books
         $usedBooks = Book::where('condition', 'Fair')->limit(6)->get(); // Limit to 6

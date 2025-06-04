@@ -46,10 +46,10 @@ class AdminBookController extends Controller
             'pages' => 'required|integer|min:1',
             'language' => 'required|string|max:100',
             'condition' => 'required|in:New,Good,Fair,Poor',
-            'for' => 'required|in:Sell,Rental,Exchange',
-            'price' => 'required_if:for,Sell|nullable|numeric|min:0',
-            'rental_days' => 'required_if:for,Rental|nullable|integer|min:1',
-            'exchange_category' => 'required_if:for,Exchange|nullable|string|max:255',
+            'type' => 'required|in:Sell,Rental,Exchange',
+            'price' => 'required_if:type,Sell|nullable|numeric|min:0',
+            'rental_days' => 'required_if:type,Rental|nullable|integer|min:1',
+            'exchange_category' => 'required_if:type,Exchange|nullable|string|max:255',
             'cover' => 'nullable|image|max:2048', // Max 2MB
         ]);
 
@@ -61,14 +61,14 @@ class AdminBookController extends Controller
             'pages',
             'language',
             'condition',
-            'for',
+            'type',
             'payment', // Assuming payment is part of the form or a default
         ]);
 
         $data['user_id'] = Auth::id();
-        $data['price'] = $request->for === 'Sell' ? $request->price : null;
-        $data['rental_days'] = $request->for === 'Rental' ? $request->rental_days : null;
-        $data['exchange_category'] = $request->for === 'Exchange' ? $request->exchange_category : null;
+        $data['price'] = $request->type === 'Sell' ? $request->price : null;
+        $data['rental_days'] = $request->type === 'Rental' ? $request->rental_days : null;
+        $data['exchange_category'] = $request->type === 'Exchange' ? $request->exchange_category : null;
         $data['payment'] = $request->input('payment', 'BASIC'); // Get payment from input or default
 
 
@@ -119,10 +119,10 @@ class AdminBookController extends Controller
             'pages' => 'required|integer|min:1',
             'language' => 'required|string|max:100',
             'condition' => 'required|in:New,Good,Fair,Poor',
-            'for' => 'required|in:Sell,Rental,Exchange',
-            'price' => 'required_if:for,Sell|nullable|numeric|min:0',
-            'rental_days' => 'required_if:for,Rental|nullable|integer|min:1',
-            'exchange_category' => 'required_if:for,Exchange|nullable|string|max:255',
+            'type' => 'required|in:Sell,Rental,Exchange',
+            'price' => 'required_if:type,Sell|nullable|numeric|min:0',
+            'rental_days' => 'required_if:type,Rental|nullable|integer|min:1',
+            'exchange_category' => 'required_if:type,Exchange|nullable|string|max:255',
             'cover' => 'nullable|image|max:2048', // Max 2MB
         ]);
 
@@ -141,13 +141,13 @@ class AdminBookController extends Controller
             'pages',
             'language',
             'condition',
-            'for',
+            'type',
             'payment',
         ]);
 
-        $data['price'] = $request->for === 'Sell' ? $request->price : null;
-        $data['rental_days'] = $request->for === 'Rental' ? $request->rental_days : null;
-        $data['exchange_category'] = $request->for === 'Exchange' ? $request->exchange_category : null;
+        $data['price'] = $request->type === 'Sell' ? $request->price : null;
+        $data['rental_days'] = $request->type === 'Rental' ? $request->rental_days : null;
+        $data['exchange_category'] = $request->type === 'Exchange' ? $request->exchange_category : null;
         $data['payment'] = $request->input('payment', $book->payment); // Get payment from input or keep existing
 
         if ($request->hasFile('cover')) {

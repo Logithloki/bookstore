@@ -65,28 +65,25 @@
                     <option value="Fair" {{ old('condition', $book->condition) == 'Fair' ? 'selected' : '' }}>Fair</option>
                     <option value="Poor" {{ old('condition', $book->condition) == 'Poor' ? 'selected' : '' }}>Poor</option>
                 </select>
-            </div>
-            <div>
-                <label for="for" class="block text-gray-700 text-sm font-bold mb-2">For:</label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="for" name="for" required>
-                    <option value="Sell" {{ old('for', $book->for) == 'Sell' ? 'selected' : '' }}>Sell</option>
-                    <option value="Rental" {{ old('for', $book->for) == 'Rental' ? 'selected' : '' }}>Rental</option>
-                    <option value="Exchange" {{ old('for', $book->for) == 'Exchange' ? 'selected' : '' }}>Exchange</option>
+            </div>            <div>
+                <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Type:</label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="type" name="type" required>
+                    <option value="Sell" {{ old('type', $book->type) == 'Sell' ? 'selected' : '' }}>Sell</option>
+                    <option value="Rental" {{ old('type', $book->type) == 'Rental' ? 'selected' : '' }}>Rental</option>
+                    <option value="Exchange" {{ old('type', $book->type) == 'Exchange' ? 'selected' : '' }}>Exchange</option>
                 </select>
             </div>
-        </div>
-
-        <div class="mb-4" id="price-field" style="display: {{ old('for', $book->for) == 'Sell' ? 'block' : 'none' }};">
+        </div>        <div class="mb-4" id="price-field" style="display: {{ old('type', $book->type) == 'Sell' ? 'block' : 'none' }};">
             <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Price (LKR):</label>
             <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" name="price" value="{{ old('price', $book->price) }}">
         </div>
 
-        <div class="mb-4" id="rental-days-field" style="display: {{ old('for', $book->for) == 'Rental' ? 'block' : 'none' }};">
+        <div class="mb-4" id="rental-days-field" style="display: {{ old('type', $book->type) == 'Rental' ? 'block' : 'none' }};">
             <label for="rental_days" class="block text-gray-700 text-sm font-bold mb-2">Rental Days:</label>
             <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="rental_days" name="rental_days" value="{{ old('rental_days', $book->rental_days) }}">
         </div>
 
-        <div class="mb-4" id="exchange-category-field" style="display: {{ old('for', $book->for) == 'Exchange' ? 'block' : 'none' }};">
+        <div class="mb-4" id="exchange-category-field" style="display: {{ old('type', $book->type) == 'Exchange' ? 'block' : 'none' }};">
             <label for="exchange_category" class="block text-gray-700 text-sm font-bold mb-2">Exchange Category:</label>
             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="exchange_category" name="exchange_category" value="{{ old('exchange_category', $book->exchange_category) }}">
         </div>
@@ -107,8 +104,7 @@
     </form>
 </div>
 
-<script>
-    document.getElementById('for').addEventListener('change', function() {
+<script>    document.getElementById('type').addEventListener('change', function() {
         const selectedValue = this.value;
         document.getElementById('price-field').style.display = selectedValue === 'Sell' ? 'block' : 'none';
         document.getElementById('rental-days-field').style.display = selectedValue === 'Rental' ? 'block' : 'none';
@@ -118,11 +114,9 @@
         if (selectedValue !== 'Sell') document.getElementById('price').value = '';
         if (selectedValue !== 'Rental') document.getElementById('rental_days').value = '';
         if (selectedValue !== 'Exchange') document.getElementById('exchange_category').value = '';
-    });
-
-    // Initialize display based on current value on page load
+    });    // Initialize display based on current value on page load
     document.addEventListener('DOMContentLoaded', function() {
-        const selectedValue = document.getElementById('for').value;
+        const selectedValue = document.getElementById('type').value;
         document.getElementById('price-field').style.display = selectedValue === 'Sell' ? 'block' : 'none';
         document.getElementById('rental-days-field').style.display = selectedValue === 'Rental' ? 'block' : 'none';
         document.getElementById('exchange-category-field').style.display = selectedValue === 'Exchange' ? 'block' : 'none';

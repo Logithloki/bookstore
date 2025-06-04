@@ -101,9 +101,9 @@
                         <p class="text-gray-700 text-sm mb-2">by {{ $book->author }}</p>
                         <div class="flex justify-between items-center mt-3">
                             <span class="text-xs text-gray-800 bg-gray-200 px-2 py-1 rounded-full">{{ $book->category }}</span>
-                            @if($book->for === 'Sell')
+                            @if($book->type === 'Sell')
                                 <span class="font-bold text-orange-700 text-lg">{{ number_format($book->price, 2) }} LKR</span>
-                            @elseif($book->for === 'Rental')
+                            @elseif($book->type === 'Rental')
                                 <span class="font-bold text-orange-700 text-lg">{{ number_format($book->price, 2) }} LKR/day</span>
                             @else
                                 <span class="font-bold text-orange-700 text-lg">Exchange</span>

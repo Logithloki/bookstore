@@ -71,7 +71,7 @@ class SearchBooks extends Component
                 $query->where('category', $this->category);
             })
             ->when($this->type, function ($query) {
-                $query->where('for', $this->type);
+                $query->where('type', $this->type);
             })
             ->when($this->condition, function ($query) {
                 $query->where('condition', $this->condition);

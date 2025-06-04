@@ -176,19 +176,17 @@
                     </div>
 
                     <!-- Listing Type -->
-                    <div class="mb-8">
-                        <label for="for" class="block text-sm font-semibold text-gray-700 mb-4">
+                    <div class="mb-8">                        <label for="type" class="block text-sm font-semibold text-gray-700 mb-4">
                             <i class="fa fa-handshake-o text-orange-500 mr-2"></i>What would you like to do with this book? *
                         </label>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="relative">
                                 <input type="radio" 
-                                       id="for_sell" 
-                                       name="for" 
+                                       id="type_sell" 
+                                       name="type" 
                                        value="Sell" 
                                        class="sr-only" 
-                                       {{ old('for') == 'Sell' ? 'checked' : '' }}>
-                                <label for="for_sell" 
+                                       {{ old('type') == 'Sell' ? 'checked' : '' }}>                                <label for="type_sell" 
                                        class="flex items-center justify-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-orange-400 transition duration-200 radio-label">
                                     <i class="fa fa-dollar text-green-500 text-2xl mr-3"></i>
                                     <span class="font-medium">Sell</span>
@@ -196,12 +194,11 @@
                             </div>
                             <div class="relative">
                                 <input type="radio" 
-                                       id="for_rental" 
-                                       name="for" 
+                                       id="type_rental" 
+                                       name="type" 
                                        value="Rental" 
                                        class="sr-only" 
-                                       {{ old('for') == 'Rental' ? 'checked' : '' }}>
-                                <label for="for_rental" 
+                                       {{ old('type') == 'Rental' ? 'checked' : '' }}>                                <label for="type_rental" 
                                        class="flex items-center justify-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-orange-400 transition duration-200 radio-label">
                                     <i class="fa fa-clock-o text-blue-500 text-2xl mr-3"></i>
                                     <span class="font-medium">Rent</span>
@@ -209,12 +206,11 @@
                             </div>
                             <div class="relative">
                                 <input type="radio" 
-                                       id="for_exchange" 
-                                       name="for" 
+                                       id="type_exchange" 
+                                       name="type" 
                                        value="Exchange" 
                                        class="sr-only" 
-                                       {{ old('for') == 'Exchange' ? 'checked' : '' }}>
-                                <label for="for_exchange" 
+                                       {{ old('type') == 'Exchange' ? 'checked' : '' }}>                                <label for="type_exchange" 
                                        class="flex items-center justify-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-orange-400 transition duration-200 radio-label">
                                     <i class="fa fa-exchange text-purple-500 text-2xl mr-3"></i>
                                     <span class="font-medium">Exchange</span>
@@ -224,8 +220,7 @@
                     </div>
 
                     <!-- Dynamic Fields -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <!-- Price Field (for Sell) -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">                        <!-- Price Field (for Sell) -->
                         <div id="price-field" style="display: none;">
                             <label for="price" class="block text-sm font-semibold text-gray-700 mb-2">
                                 <i class="fa fa-money text-green-500 mr-2"></i>Price ($)
@@ -305,16 +300,13 @@
     <!-- Footer -->
     <x-footer />
 
-    <!-- JavaScript for dynamic form fields and image preview -->
-    <script>
+    <!-- JavaScript for dynamic form fields and image preview -->    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const forRadios = document.querySelectorAll('input[name="for"]');
+            const typeRadios = document.querySelectorAll('input[name="type"]');
             const priceField = document.getElementById('price-field');
             const rentalDaysField = document.getElementById('rental-days-field');
-            const exchangeCategoryField = document.getElementById('exchange-category-field');
-
-            // Handle radio button styling
-            forRadios.forEach(radio => {
+            const exchangeCategoryField = document.getElementById('exchange-category-field');            // Handle radio button styling
+            typeRadios.forEach(radio => {
                 radio.addEventListener('change', function() {
                     // Remove active styling from all labels
                     document.querySelectorAll('.radio-label').forEach(label => {
@@ -353,10 +345,8 @@
                 if (selectedValue !== 'Sell') document.getElementById('price').value = '';
                 if (selectedValue !== 'Rental') document.getElementById('rental_days').value = '';
                 if (selectedValue !== 'Exchange') document.getElementById('exchange_category').value = '';
-            }
-
-            // Initialize form state
-            const checkedRadio = document.querySelector('input[name="for"]:checked');
+            }            // Initialize form state
+            const checkedRadio = document.querySelector('input[name="type"]:checked');
             if (checkedRadio) {
                 checkedRadio.dispatchEvent(new Event('change'));
             }

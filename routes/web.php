@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Admin\AdminBookController;
 use App\Http\Controllers\HomeController;
 use App\Models\User;
+use App\Models\Book;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -30,7 +31,6 @@ Route::middleware('auth')->post('/tokens/create', function (Request $request) {
 // Public routes (no authentication required)
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
     Route::get('/cart', function () {
